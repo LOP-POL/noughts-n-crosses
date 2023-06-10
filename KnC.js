@@ -10,6 +10,10 @@ const subBtns = Array.from(document.querySelectorAll(".sub"))
 const turn = document.getElementById("turn")
 const nPlayed = document.getElementById("nPlayed")
 
+const helpBtn = document.getElementById("helpBtn")
+const help =  document.getElementById("help")
+const close = document.getElementById("close")
+
 //creating a board
 const boxesCol = Array.from(boxes)
 const trackers = {
@@ -36,9 +40,11 @@ function restart(){
     turn.textContent = ""
 }
 function newGame(){
-    for(var i = 0;i<points.length;i++){
-        points[i] = 0
-    }
+    const pointValues = Object.keys(points)
+    pointValues.forEach(value=>{
+        points[value] = 0
+        console.log(points[value])
+    })
     trackers.gamesPlayed = 0
     restart()
     addBtns.forEach(btn=>{
@@ -102,9 +108,6 @@ function check_tie(){
         addToScore("T")
         restart()
     }
-    else{
-        console.log(trackers.completion)
-    }
 }
 function check_winner(mchange){
    
@@ -152,10 +155,7 @@ function check_winner(mchange){
 //var player = ""
 restartBtn.onclick = restart
 
-nGame.onclick = (e)=>{
-    newGame()
-    restart()
-}
+nGame.onclick = newGame
 
 
 //Main changes 
@@ -187,7 +187,12 @@ boxesCol.forEach(box=>{
     
 })
         
-
+helpBtn.addEventListener("click",(e)=>{
+    help.style.display = "flex"
+})
+close.addEventListener("click",(e)=>{
+    help.style.display = "none"
+})
 
 function animateBlur(x,y){
     // blur1.animate([{left:`${x}px`,top:`${y}px`}],{duration:800,fill:"forwards",delay:80})
